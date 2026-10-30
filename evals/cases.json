@@ -1,0 +1,20 @@
+[
+  {
+    "id": "coding",
+    "title": "Coding agent review",
+    "file": "examples/coding-agent.md",
+    "min_optimized": 75
+  },
+  {
+    "id": "research",
+    "title": "Research agent",
+    "file": "examples/research-agent.md",
+    "min_optimized": 75
+  },
+  {
+    "id": "ux-audit",
+    "title": "UX audit agent",
+    "file": "examples/ux-audit-agent.md",
+    "min_optimized": 75
+  }
+]

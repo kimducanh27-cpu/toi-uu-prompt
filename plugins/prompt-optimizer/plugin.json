@@ -1,0 +1,16 @@
+{
+  "name": "prompt-optimizer",
+  "displayName": "Prompt Optimizer",
+  "version": "0.1.0",
+  "description": "Audit, rewrite and evaluate prompts with a 100-point rubric, examples and negative controls.",
+  "author": {
+    "name": "Duc Anh"
+  },
+  "license": "MIT",
+  "components": {
+    "commands": ["commands/optimize-prompt.md"],
+    "skills": ["skills/prompt-optimizer/SKILL.md"],
+    "subagents": ["subagents/prompt-auditor.md"],
+    "hooks": ["hooks/validate-prompt.sh"]
+  }
+}
