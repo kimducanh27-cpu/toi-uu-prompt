@@ -1,16 +1,24 @@
 {
   "name": "prompt-optimizer",
   "displayName": "Prompt Optimizer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Audit, rewrite and evaluate prompts with a 100-point rubric, examples and negative controls.",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "prompt",
+    "prompt-engineering",
+    "audit",
+    "rubric",
+    "evaluation"
+  ],
   "author": {
     "name": "Duc Anh"
   },
   "license": "MIT",
-  "components": {
-    "commands": ["commands/optimize-prompt.md"],
-    "skills": ["skills/prompt-optimizer/SKILL.md"],
-    "subagents": ["subagents/prompt-auditor.md"],
-    "hooks": ["hooks/validate-prompt.sh"]
-  }
+  "homepage": "https://github.com/kimducanh27-cpu/toi-uu-prompt",
+  "repository": "https://github.com/kimducanh27-cpu/toi-uu-prompt",
+  "suggestedPrompts": [
+    "Audit prompt này theo rubric 100 điểm",
+    "Tối ưu prompt của tôi cho Claude/GPT"
+  ]
 }

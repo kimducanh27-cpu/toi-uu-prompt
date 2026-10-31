@@ -18,10 +18,37 @@
 
 ## 3. Dùng trong app
 
-- **Claude Code**: copy `commands/`, `skills/`, `subagents/`, `hooks/`; thêm hook UserPromptSubmit.
-- **Qoder**: đọc `skills/prompt-optimizer/SKILL.md` hoặc chạy `prompts/optimize.md`.
-- **Antigravity**: copy skill/rule vào `.agents/`; subagent read-only; browser chỉ main `/browser`.
-- **Generic**: đọc trực tiếp prompt; chạy eval bằng Node.
+### Claude Code
+
+Copy `commands/`, `skills/`, `subagents/`, `hooks/` vào project. Thêm hook
+`UserPromptSubmit` trỏ tới `hooks/validate-prompt.sh`; hook chặn bằng
+`exit 2` + stderr.
+
+### Qoder
+
+Đọc `skills/prompt-optimizer/SKILL.md` hoặc chạy `prompts/optimize.md`.
+Command `/optimize-prompt` chỉ dùng khi host hỗ trợ `commands/`.
+
+### Antigravity
+
+Cài package đã đóng gói:
+
+```bash
+node scripts/sync-plugin.mjs
+agy plugin validate plugins/prompt-optimizer --strict
+agy plugin install plugins/prompt-optimizer
+```
+
+Package có skill, agent và `hooks.json`; **không** có `commands/` vì
+Antigravity không load command. Hook `PreInvocation` chỉ inject cảnh báo,
+không chặn prompt.
+
+Copy thủ công vào `.agents/` chỉ khi không dùng `agy plugin install`; giữ
+subagent read-only và browser ở main session.
+
+### Generic
+
+Đọc trực tiếp prompt; chạy eval bằng Node.
 
 ## 4. Đọc điểm
 
@@ -37,9 +64,10 @@
 ```bash
 node scripts/eval-prompts.mjs
 # CASE         BASE OPT MIN RESULT
-# coding       1.67 93.33 75 PASS
-# research     0 96.66 75 PASS
-# ux-audit     1.67 96.66 75 PASS
+# coding       6.66 93.33 75 PASS
+# research     5 83.34 75 PASS
+# ux-audit     6.66 91.67 75 PASS
+# english      3.33 93.33 90 PASS
 ```
 
 ## 6. Không làm

@@ -4,8 +4,8 @@ Bộ kit để **audit, viết lại, đo và đóng gói prompt** cho Gemini, C
 
 ## Trạng thái
 
-- Phiên bản: `0.1.0` (đang xây theo FlowPlan).
-- Phạm vi: prompt-only; chưa chạy live eval model trong repo.
+- Phiên bản: `0.1.1` (đang xây theo FlowPlan).
+- Phạm vi: prompt-only; **chưa chạy live eval model** trong repo.
 - Nguyên tắc: không bịa điểm, không copy prompt/code ngoài license, không đưa secret/PII vào prompt.
 
 ## Dùng nhanh
@@ -14,6 +14,8 @@ Bộ kit để **audit, viết lại, đo và đóng gói prompt** cho Gemini, C
 node scripts/eval-prompts.mjs          # chấm cấu trúc baseline/optimized
 node scripts/eval-prompts.mjs --json   # xuất JSON
 node scripts/check-docs.mjs            # kiểm file/link/secret/path
+node scripts/sync-plugin.mjs --check   # plugin package có lệch nguồn?
+agy plugin validate plugins/prompt-optimizer --strict
 ```
 
 - Audit prompt: đọc `prompts/audit.md`.
@@ -27,14 +29,14 @@ node scripts/check-docs.mjs            # kiểm file/link/secret/path
 ```text
 docs/       research, rubric, taxonomy, models, architecture, eval, usage, flowplan
 prompts/    optimize, audit, core templates, CHANGELOG
-examples/   3 case baseline vs optimized
+examples/   4 case baseline vs optimized
 evals/      cases, rubric máy đọc, negative cases, results
-scripts/    eval-prompts, check-docs
-commands/   /optimize-prompt
+scripts/    eval-prompts, check-docs, sync-plugin
+commands/   /optimize-prompt (Claude Code)
 skills/     prompt-optimizer
 subagents/  prompt-auditor (read-only)
-hooks/      validate-prompt
-plugins/    plugin manifest
+hooks/      validate-prompt, antigravity-hook
+plugins/    prompt-optimizer package (tự chứa)
 ```
 
 ## Quy trình 5 phần
@@ -47,7 +49,14 @@ plugins/    plugin manifest
 
 ## Đo và bằng chứng
 
-- `scripts/eval-prompts.mjs` chấm **cấu trúc prompt** (không phải chất lượng output model).
+### Structure eval ≠ live eval
+
+| Loại | Công cụ | Đo gì | Không đo gì |
+|---|---|---|---|
+| Structure eval | `scripts/eval-prompts.mjs` | Có đủ mục tiêu/bối cảnh/phạm vi/ràng buộc/output/nghiệm thu; pattern nguy hiểm; cap | Model có trả lời đúng/ hay hơn không |
+| Live eval | Cần model/API (chưa có trong repo) | Chất lượng output thật, win-rate A/B | Không thay owner review |
+
+- `scripts/eval-prompts.mjs` chỉ là **static linter cho cấu trúc prompt**; điểm 100 không có nghĩa prompt chắc chắn tốt hơn.
 - Live eval cần model/API; nếu thiếu, ghi `blocked`, không suy điểm.
 - Mỗi thay đổi prompt ghi `prompts/CHANGELOG.md` + before/after.
 - Kết quả eval lưu trong `evals/results/`.

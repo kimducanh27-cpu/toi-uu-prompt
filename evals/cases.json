@@ -16,5 +16,11 @@
     "title": "UX audit agent",
     "file": "examples/ux-audit-agent.md",
     "min_optimized": 75
+  },
+  {
+    "id": "english",
+    "title": "English research brief",
+    "file": "examples/english-agent.md",
+    "min_optimized": 90
   }
 ]

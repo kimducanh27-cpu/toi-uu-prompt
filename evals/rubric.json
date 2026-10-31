@@ -1,59 +1,59 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "criteria": [
     {
       "id": "goal",
       "label": "Mục tiêu & vai trò",
       "weight": 15,
-      "patterns": ["bạn là", "vai trò|role", "mục tiêu|nhiệm vụ|task|goal"]
+      "patterns": ["bạn là|you are|act as", "vai trò|role", "mục tiêu|nhiệm vụ|task|goal|objective|mission"]
     },
     {
       "id": "context",
       "label": "Bối cảnh & người đọc",
       "weight": 15,
-      "patterns": ["bối cảnh|context", "người (đọc|dùng)|audience", "dữ kiện|dữ liệu|nguồn|source", "chưa biết|unknown|giả định|assumption"]
+      "patterns": ["bối cảnh|context|background", "người (đọc|dùng)|audience|reader|user", "dữ kiện|dữ liệu|nguồn|source|facts|data", "chưa biết|unknown|giả định|assumption"]
     },
     {
       "id": "scope",
       "label": "Phạm vi & non-goals",
       "weight": 10,
-      "patterns": ["phạm vi|scope", "không (làm|đụng|refactor|sửa|đổi)|non-goal|không sửa", "chỉ .{0,40}(trong|file|route|màn hình)|only"]
+      "patterns": ["phạm vi|scope|boundaries", "không (làm|đụng|refactor|sửa|đổi)|non-goal|do not|out of scope|don't", "chỉ .{0,40}(trong|file|route|màn hình)|only .{0,40}(in|within|file|route|screen)"]
     },
     {
       "id": "constraints",
       "label": "Ràng buộc & an toàn",
       "weight": 15,
-      "patterns": ["ràng buộc|constraint", "không bịa|không đoán|no fabrication", "secret|pii|an toàn|safety", "injection|vượt quyền|duyệt|approval"]
+      "patterns": ["ràng buộc|constraint|requirement", "không bịa|không đoán|no fabrication|do not fabricate|don't make up", "secret|pii|an toàn|safety|privacy", "injection|vượt quyền|duyệt|approval|authorize|permission"]
     },
     {
       "id": "output",
       "label": "Định dạng đầu ra",
       "weight": 15,
-      "patterns": ["định dạng|output format", "json|markdown|schema", "field|trường|bắt buộc|required"]
+      "patterns": ["định dạng|output format|format", "json|markdown|schema|table", "field|trường|bắt buộc|required|must include"]
     },
     {
       "id": "examples",
       "label": "Ví dụ / few-shot",
       "weight": 10,
-      "patterns": ["ví dụ|example|few-shot", "đầu vào|input", "đầu ra|output"]
+      "patterns": ["ví dụ|example|few-shot|e\\.g\\.", "đầu vào|input", "đầu ra|output|expected output"]
     },
     {
       "id": "acceptance",
       "label": "Nghiệm thu & self-check",
       "weight": 10,
-      "patterns": ["nghiệm thu|acceptance|tiêu chí|criteria", "tự kiểm|self-check|kiểm lại", "repro|expected|actual|pass/fail"]
+      "patterns": ["nghiệm thu|acceptance|success criteria|definition of done", "tự kiểm|self-check|kiểm lại|verify|check before", "repro|expected|actual|pass/fail|test case"]
     },
     {
       "id": "model_token",
       "label": "Model fit & token",
       "weight": 5,
-      "patterns": ["token|độ dài|budget|ngắn", "model|gemini|claude|gpt|antigravity"]
+      "patterns": ["token|độ dài|budget|ngắn|concise|length", "model|gemini|claude|gpt|antigravity", "max_tokens|context|window|context window"]
     },
     {
       "id": "maintenance",
       "label": "Bảo trì & version",
       "weight": 5,
-      "patterns": ["version|phiên bản|changelog", "owner|duyệt|review"]
+      "patterns": ["version|phiên bản|changelog", "owner|duyệt|review|approver", "git commit|PR|merge|commit"]
     }
   ],
   "caps": {
@@ -61,12 +61,5 @@
     "unsafe": 40,
     "missing_acceptance": 80
   },
-  "unsafe_patterns": [
-    "ignore (all )?previous",
-    "reveal (the )?system",
-    "drop database",
-    "rm -rf",
-    "hãy bịa|phải bịa|được phép bịa",
-    "deploy.*production.*without"
-  ]
+  "unsafe_patterns": []
 }

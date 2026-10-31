@@ -1,47 +1,64 @@
 #!/usr/bin/env bash
 # UserPromptSubmit hook: block dangerous prompts and warn on missing sections.
+# Contract: exit 2 + stderr blocks the prompt (Claude Code); exit 0 + JSON adds context.
 set -euo pipefail
 
-INPUT=$(cat)
-PROMPT=$(printf '%s' "$INPUT" | node -e '
-let input = "";
-process.stdin.on("data", (chunk) => { input += chunk; });
-process.stdin.on("end", () => {
-  try {
-    const data = JSON.parse(input);
-    process.stdout.write(String(data.prompt || data.user_prompt || ""));
-  } catch {
-    process.stdout.write("");
-  }
-});
-' 2>/dev/null || true)
+block() {
+  printf '%s\n' "$1" >&2
+  exit 2
+}
+
+# Parse JSON with Node.js from stdin
+PROMPT=$(node -e "
+const input = require('fs').readFileSync(0, 'utf8');
+try {
+  const data = JSON.parse(input);
+  console.log(data.prompt || data.user_prompt || '');
+} catch (error) {
+  process.exit(1);
+}
+" 2>/dev/null) || block "Malformed input or parsing error"
 
 if [ -z "$PROMPT" ]; then
-  exit 0
+  block "Empty prompt after parsing"
 fi
 
-DANGEROUS=(
-  "rm -rf /"
-  "drop database"
-  "format disk"
-  "git push --force"
-  "ignore previous instructions"
-  "reveal system prompt"
-)
+# Dangerous patterns. Node.js regex gives cross-line matching without grep escaping.
+DANGEROUS_CHECK=$(node -e "
+const text = require('fs').readFileSync(0, 'utf8');
+const patterns = [
+  /\brm\s+(?:-[a-z-]*[rf][a-z-]*\s*)+/i,   // rm -rf, rm -fr, rm -r -f
+  /drop\s+(database|schema)/i,              // drop database/schema
+  /truncate\s+table/i,                      // truncate table
+  /format\s+disk/i,                         // format disk
+  /git\s+push\s+(-f|--force)(?!-with-lease)/i, // git push -f/--force
+  /ignore\s+(all\s+)?previous/i,            // ignore previous/all previous
+  /reveal\s*(the\s*)?(system\s*)?prompt/i   // reveal system prompt
+];
 
-for pattern in "${DANGEROUS[@]}"; do
-  if printf '%s' "$PROMPT" | grep -qi -- "$pattern"; then
-    printf '{"decision":"block","reason":"Blocked dangerous prompt pattern: %s"}' "$pattern"
-    exit 0
-  fi
-done
+for (const pattern of patterns) {
+  if (pattern.test(text)) {
+    console.log('BLOCKED');
+    process.exit(0);
+  }
+}
+process.exit(1);
+" <<< "$PROMPT" 2>/dev/null) && block "Blocked dangerous prompt pattern"
 
-if printf '%s' "$PROMPT" | grep -qiE 'deploy.*production'; then
+# Production deploy needs explicit owner approval. [\s\S] catches newline splits.
+DEPLOY_CHECK=$(node -e "
+const text = require('fs').readFileSync(0, 'utf8');
+if (/deploy[\s\S]{0,120}?production/i.test(text)) {
+  console.log('BLOCKED');
+  process.exit(0);
+} else {
+  process.exit(1);
+}
+" <<< "$PROMPT" 2>/dev/null) && {
   if [ ! -f ".deployment-approved" ]; then
-    printf '{"decision":"block","reason":"Production deploy requires owner approval (.deployment-approved)."}'
-    exit 0
+    block "Production deploy requires owner approval (.deployment-approved)."
   fi
-fi
+}
 
 WARNINGS=()
 if ! printf '%s' "$PROMPT" | grep -qiE 'mục tiêu|nhiệm vụ|task|goal'; then

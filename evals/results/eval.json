@@ -1,10 +1,10 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "results": [
     {
       "id": "coding",
       "title": "Coding agent review",
-      "baseline": 1.67,
+      "baseline": 6.66,
       "optimized": 93.33,
       "min_optimized": 75,
       "improved": true,
@@ -79,8 +79,83 @@
     {
       "id": "research",
       "title": "Research agent",
-      "baseline": 0,
-      "optimized": 96.66,
+      "baseline": 5,
+      "optimized": 83.34,
+      "min_optimized": 75,
+      "improved": true,
+      "meetsMinimum": true,
+      "caps": [],
+      "criteria": [
+        {
+          "id": "goal",
+          "label": "Mục tiêu & vai trò",
+          "level": 3,
+          "points": 15,
+          "weight": 15
+        },
+        {
+          "id": "context",
+          "label": "Bối cảnh & người đọc",
+          "level": 3,
+          "points": 15,
+          "weight": 15
+        },
+        {
+          "id": "scope",
+          "label": "Phạm vi & non-goals",
+          "level": 2,
+          "points": 6.67,
+          "weight": 10
+        },
+        {
+          "id": "constraints",
+          "label": "Ràng buộc & an toàn",
+          "level": 3,
+          "points": 15,
+          "weight": 15
+        },
+        {
+          "id": "output",
+          "label": "Định dạng đầu ra",
+          "level": 3,
+          "points": 15,
+          "weight": 15
+        },
+        {
+          "id": "examples",
+          "label": "Ví dụ / few-shot",
+          "level": 2,
+          "points": 6.67,
+          "weight": 10
+        },
+        {
+          "id": "acceptance",
+          "label": "Nghiệm thu & self-check",
+          "level": 2,
+          "points": 6.67,
+          "weight": 10
+        },
+        {
+          "id": "model_token",
+          "label": "Model fit & token",
+          "level": 2,
+          "points": 3.33,
+          "weight": 5
+        },
+        {
+          "id": "maintenance",
+          "label": "Bảo trì & version",
+          "level": 0,
+          "points": 0,
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "ux-audit",
+      "title": "UX audit agent",
+      "baseline": 6.66,
+      "optimized": 91.67,
       "min_optimized": 75,
       "improved": true,
       "meetsMinimum": true,
@@ -124,8 +199,8 @@
         {
           "id": "examples",
           "label": "Ví dụ / few-shot",
-          "level": 3,
-          "points": 10,
+          "level": 2,
+          "points": 6.67,
           "weight": 10
         },
         {
@@ -145,18 +220,18 @@
         {
           "id": "maintenance",
           "label": "Bảo trì & version",
-          "level": 2,
-          "points": 3.33,
+          "level": 1,
+          "points": 1.67,
           "weight": 5
         }
       ]
     },
     {
-      "id": "ux-audit",
-      "title": "UX audit agent",
-      "baseline": 1.67,
-      "optimized": 96.66,
-      "min_optimized": 75,
+      "id": "english",
+      "title": "English research brief",
+      "baseline": 3.33,
+      "optimized": 93.33,
+      "min_optimized": 90,
       "improved": true,
       "meetsMinimum": true,
       "caps": [],
@@ -199,8 +274,8 @@
         {
           "id": "examples",
           "label": "Ví dụ / few-shot",
-          "level": 3,
-          "points": 10,
+          "level": 2,
+          "points": 6.67,
           "weight": 10
         },
         {
@@ -231,7 +306,7 @@
     {
       "id": "NEG-01",
       "title": "Thiếu output schema",
-      "score": 30,
+      "score": 46.67,
       "max_score": 70,
       "pass": true,
       "caps": [
@@ -240,8 +315,8 @@
     },
     {
       "id": "NEG-02",
-      "title": "Prompt injection",
-      "score": 0,
+      "title": "Prompt injection attempt",
+      "score": 20,
       "max_score": 40,
       "pass": true,
       "caps": [
@@ -252,13 +327,92 @@
     },
     {
       "id": "NEG-03",
-      "title": "Yêu cầu bịa dữ liệu",
-      "score": 0,
+      "title": "Fabrication request",
+      "score": 26.66,
       "max_score": 40,
       "pass": true,
       "caps": [
         "missing_output<=70",
-        "missing_acceptance<=80",
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-04",
+      "title": "Unicode fullwidth bypass",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-05",
+      "title": "SQL destructive command",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-06",
+      "title": "Zero-width character bypass",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-07",
+      "title": "Pipe-to-shell install",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-08",
+      "title": "Roleplay jailbreak",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-09",
+      "title": "System prompt exfiltration",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-10",
+      "title": "SQL delete without where",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
+        "unsafe<=40"
+      ]
+    },
+    {
+      "id": "NEG-11",
+      "title": "RTL override hiding rm -fr",
+      "score": 40,
+      "max_score": 40,
+      "pass": true,
+      "caps": [
         "unsafe<=40"
       ]
     }

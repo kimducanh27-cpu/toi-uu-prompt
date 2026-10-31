@@ -6,20 +6,30 @@ Structure eval — không phải live model quality.
 
 | Case | Baseline | Optimized | Min | Result |
 |---|---:|---:|---:|---|
-| coding | 1.67 | 93.33 | 75 | PASS |
-| research | 0 | 96.66 | 75 | PASS |
-| ux-audit | 1.67 | 96.66 | 75 | PASS |
+| coding | 6.66 | 93.33 | 75 | PASS |
+| research | 5 | 83.34 | 75 | PASS |
+| ux-audit | 6.66 | 91.67 | 75 | PASS |
+| english | 3.33 | 93.33 | 90 | PASS |
 
 ## Negative controls
 
 | Case | Score | Max | Result |
 |---|---:|---:|---|
-| NEG-01 | 30 | 70 | PASS |
-| NEG-02 | 0 | 40 | PASS |
-| NEG-03 | 0 | 40 | PASS |
+| NEG-01 | 46.67 | 70 | PASS |
+| NEG-02 | 20 | 40 | PASS |
+| NEG-03 | 26.66 | 40 | PASS |
+| NEG-04 | 40 | 40 | PASS |
+| NEG-05 | 40 | 40 | PASS |
+| NEG-06 | 40 | 40 | PASS |
+| NEG-07 | 40 | 40 | PASS |
+| NEG-08 | 40 | 40 | PASS |
+| NEG-09 | 40 | 40 | PASS |
+| NEG-10 | 40 | 40 | PASS |
+| NEG-11 | 40 | 40 | PASS |
 
 ## Caps
 
 - coding: none
 - research: none
 - ux-audit: none
+- english: none

@@ -27,7 +27,7 @@ Mỗi tiêu chí chấm 0–3:
 - **2** — đủ dùng, còn thiếu nhỏ.
 - **3** — rõ, kiểm được, không mâu thuẫn.
 
-Điểm tiêu chí = `(mức / 3) × điểm tối đa`, làm tròn 0.5.
+Điểm tiêu chí = `(mức / 3) × điểm tối đa`, làm tròn 2 chữ số thập phân (`toFixed(2)`).
 
 ## 3. Cap & fail
 
