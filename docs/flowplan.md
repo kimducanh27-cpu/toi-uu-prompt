@@ -70,7 +70,7 @@ Nguồn: plan "Fix P0/P1 từ 5 agy reviews — toi-uu-prompt commit 78009ac".
 | 3 | 11–13 | Plugin manifest, subagent tools, logo | ✅ DONE |
 | 4 | 14–18 | XML delimiters, English patterns, JSON few-shot, metadata, blocked_status | ✅ DONE |
 | 5 | 19–27 | Docs, version, negative controls, link/secret checks, baselines | ✅ DONE |
-| 6 | 28–32 | Full test, CI simulation, adversarial, readiness, push | ⏳ PENDING |
+| 6 | 28–32 | Full test, CI simulation, adversarial, readiness, push | ✅ DONE — push `408c50c`, CI run `41179527631` success |
 
 ### Evidence phase 3–5
 

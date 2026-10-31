@@ -43,8 +43,9 @@ Ngày: 2026-10-31. Phạm vi: kit prompt-only + plugin package.
 - [x] `test-all` pass.
 - [x] Version đồng bộ: `VERSION` 0.1.1, plugin 0.1.1, examples 1.0.1.
 - [x] Không có secret/PII/absolute path trong repo.
-- [ ] CI GitHub Actions xanh (cần push/PR).
-- [ ] Owner duyệt push và cài thử plugin.
+- [x] Push commit `408c50c` lên `origin/main`.
+- [x] CI GitHub Actions xanh (run `41179527631`, job `docs` success).
+- [ ] Owner duyệt cài thử plugin.
 
 ## 5. Kết luận
 
